@@ -1,0 +1,2 @@
+키보드가 눌릴때만 이동하고 싶다면
+boxcollider2d에 있는 meterial빼기
