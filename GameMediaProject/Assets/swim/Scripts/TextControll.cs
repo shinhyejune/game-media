@@ -29,6 +29,7 @@ public class TextControll : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            StopAllCoroutines();
             StartTyping();
         }
     }
@@ -39,7 +40,6 @@ public class TextControll : MonoBehaviour
         {
             string sentence = sentences[currentIndex];
             currentIndex++;
-
             StartCoroutine(TypeSentence(sentence));
         }
     }

@@ -344,8 +344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33.9, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -17.1599, y: 0}
+  m_SizeDelta: {x: 320.4951, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &585807298
 MonoBehaviour:
@@ -361,9 +361,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 585807299}
   sentences:
-  - test 1
-  - test 2
-  - test 3
+  - "\uC548\uB155\uD558\uC138\uC694"
+  - "\uC774 \uAE30\uB2A5\uC740 \uBBF8\uB9AC \uC785\uB825\uD55C \uD14D\uC2A4\uD2B8\uB97C"
+  - "\uC21C\uCC28\uC801\uC73C\uB85C \uCD9C\uB825\uD574\uC8FC\uB294 \uAE30\uB2A5\uC785\uB2C8\uB2E4."
+  - 
   typeSpeed: 0.1
 --- !u!114 &585807299
 MonoBehaviour:
