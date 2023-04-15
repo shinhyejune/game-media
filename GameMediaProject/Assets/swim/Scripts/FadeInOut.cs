@@ -6,6 +6,7 @@ public class FadeInOut : MonoBehaviour
 {
 
     public float fadeTime = 1.0f;
+    public CanvasGroup canvas;
 
     private Material material;
 
@@ -23,11 +24,11 @@ public class FadeInOut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             StartCoroutine(FadeIn());
         }
-        if(Input.GetKeyDown(KeyCode.B))
+        if(Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(FadeOut());
         }
@@ -41,6 +42,7 @@ public class FadeInOut : MonoBehaviour
         {
             t += Time.deltaTime / fadeTime;
             float alpha = Mathf.Lerp(0f, 1f, t);
+            canvas.alpha = alpha;
             material.color = new Color(material.color.r, material.color.g, material.color.b, alpha);
             yield return null;
         }
@@ -54,6 +56,7 @@ public class FadeInOut : MonoBehaviour
         {
             t += Time.deltaTime / fadeTime;
             float alpha = Mathf.Lerp(1f, 0f, t);
+            canvas.alpha = alpha;
             material.color = new Color(material.color.r, material.color.g, material.color.b, alpha);
             yield return null;
         }

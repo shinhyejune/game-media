@@ -8,6 +8,13 @@ public class PlayerMove : MonoBehaviour
     float maxSpeed;
     [SerializeField]
     float jumpPower;
+    [SerializeField]
+    RectTransform image;
+    [SerializeField]
+    Transform player;
+
+    [SerializeField]
+    float textPosition;
 
     Rigidbody2D rigidbody;
     SpriteRenderer spriteRenderer;
@@ -40,6 +47,12 @@ public class PlayerMove : MonoBehaviour
         }
 
         //30분56초 이동 애니메이션 ->walk, idle 관리 추가하기
+
+
+        if(player != null && image != null)
+        {
+            image.position = new Vector3(player.position.x, player.position.y + textPosition, player.position.z);
+        }
     }
 
     private void FixedUpdate()
