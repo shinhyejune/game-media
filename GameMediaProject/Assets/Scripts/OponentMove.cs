@@ -1,0 +1,116 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Spine.Unity;
+
+public class OponentMove : MonoBehaviour
+{
+    public Transform target;
+    public float speed = 1f;
+    public float pauseTime = 0.5f;
+
+    private Vector3 startPosition;
+    private bool isMoving = true;
+
+    //스파인 애니메이션
+    public SkeletonAnimation skeletonAnimation;
+    public AnimationReferenceAsset[] AnimClip;
+
+    private bool isFirst = true;
+
+    public enum AnimState
+    {
+        Idle
+    }
+
+    //현재 애니메이션 처리가 무엇인지에 대한 변수
+    private AnimState _AnimState;
+
+    //현재 어떤 애니메이션이 재생되고 있는지에 대한 변수
+    private string CurrentAnimation;
+
+    private void Start()
+    {
+        //startPosition = transform.position;
+        //StartCoroutine(MoveObject());
+    }
+
+    private void FixedUpdate()
+    {
+        _AnimState = AnimState.Idle;
+        SetCurrentAnimation(_AnimState);
+    }
+
+    //private IEnumerator MoveObject()
+    //{
+    //    float journeyLength = Vector3.Distance(startPosition, target.position);
+    //    float startTime = Time.time;
+
+    //    while (true)
+    //    {
+    //        // 현재 위치에서 목표 지점까지 이동
+    //        while (isMoving)
+    //        {
+    //            float distanceCovered = (Time.time - startTime) * speed;
+    //            float fractionOfJourney = distanceCovered / journeyLength;
+    //            transform.position = Vector3.Lerp(startPosition, target.position, fractionOfJourney);
+
+    //            if (fractionOfJourney >= 1f)
+    //            {
+    //                // 목표 지점에 도달한 경우 이동을 멈추고 시작 위치로 이동
+    //                isMoving = false;
+    //                startTime = Time.time;
+    //                break;
+    //            }
+
+    //            yield return null;
+    //        }
+
+    //        // 시작 위치에서 목표 지점으로 이동
+    //        while (!isMoving)
+    //        {
+    //            float distanceCovered = (Time.time - startTime) * speed;
+    //            float fractionOfJourney = distanceCovered / journeyLength;
+    //            transform.position = Vector3.Lerp(target.position, startPosition, fractionOfJourney);
+
+    //            if (fractionOfJourney >= 1f)
+    //            {
+    //                // 시작 위치에 도달한 경우 이동을 다시 시작
+    //                isMoving = true;
+    //                startPosition = transform.position;
+    //                yield return new WaitForSeconds(pauseTime);
+    //                startTime = Time.time;
+    //                break;
+    //            }
+
+    //            yield return null;
+    //        }
+    //    }
+    //}
+
+    private void _AsncAnimation(AnimationReferenceAsset animClip, bool loop, float timeScale)
+    {
+        if (animClip.name.Equals(CurrentAnimation))
+            return;
+
+
+        skeletonAnimation.state.SetAnimation(0, animClip, loop).TimeScale = timeScale;
+        skeletonAnimation.loop = loop;
+        skeletonAnimation.timeScale = timeScale;
+
+        CurrentAnimation = animClip.name;
+    }
+
+    private void SetCurrentAnimation(AnimState _state)
+    {
+        switch (_state)
+        {
+            case AnimState.Idle:
+                _AsncAnimation(AnimClip[(int)AnimState.Idle], true, 1f);
+                break;
+        }
+
+        //스위치문 요약
+        //_AsncAnimation(AnimClip[(int)_state], true, 1f);
+    }
+}

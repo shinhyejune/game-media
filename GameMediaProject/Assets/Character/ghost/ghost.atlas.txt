@@ -1,0 +1,11 @@
+ghost.png
+size:801,348
+filter:Linear,Linear
+pma:true
+body
+bounds:2,2,344,596
+rotate:90
+ring
+bounds:600,36,310,199
+offsets:15,14,340,228
+rotate:90
