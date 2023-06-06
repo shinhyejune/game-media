@@ -35,14 +35,14 @@ public class PlayerMove : MonoBehaviour
 
     public enum AnimState
     {
-        Idle,Walk,Jump
+        Idle,Walk,Jump,Hit
     }
 
     //현재 애니메이션 처리가 무엇인지에 대한 변수
-    private AnimState _AnimState;
+    public AnimState _AnimState;
 
     //현재 어떤 애니메이션이 재생되고 있는지에 대한 변수
-    private string CurrentAnimation;
+    public string CurrentAnimation;
 
     
 
@@ -66,6 +66,10 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(WaitForButton());
         }
 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("aa");
+        }
 
         //button up speed
         if (Input.GetButtonUp("Horizontal"))
@@ -174,6 +178,9 @@ public class PlayerMove : MonoBehaviour
             case AnimState.Jump:
                 _AsncAnimation(AnimClip[(int)AnimState.Jump], false, 1f);
                 break;
+            case AnimState.Hit:
+                _AsncAnimation(AnimClip[(int)AnimState.Hit], false, 1f);
+                break;
         }
 
         //스위치문 요약
@@ -184,5 +191,31 @@ public class PlayerMove : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         jumpBtn.color = Color.white;
+    }
+
+    //공격 받는거
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Bullet(Clone)")
+        {
+            Destroy(other.gameObject);
+            state = 2;
+            _AnimState = AnimState.Hit;
+            CurrentAnimation = AnimClip[(int)AnimState.Hit].name;
+            skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Hit], false);
+            StartCoroutine(WaitForHit());
+        }
+    }
+
+    public void Attack()
+    {
+
+    }
+
+    private IEnumerator WaitForHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if(state == 2)
+            state = 0;
     }
 }

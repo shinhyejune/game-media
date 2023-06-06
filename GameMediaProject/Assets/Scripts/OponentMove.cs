@@ -5,12 +5,19 @@ using Spine.Unity;
 
 public class OponentMove : MonoBehaviour
 {
-    public Transform target;
     public float speed = 1f;
     public float pauseTime = 0.5f;
 
     private Vector3 startPosition;
     private bool isMoving = true;
+
+    //총알 생성
+    public GameObject bulletPrefab;
+    public float attackRate = 3f;
+    public Transform target;
+    private float timeAfterAttack;
+
+
 
     //스파인 애니메이션
     public SkeletonAnimation skeletonAnimation;
@@ -31,6 +38,7 @@ public class OponentMove : MonoBehaviour
 
     private void Start()
     {
+        timeAfterAttack = 0f;
         //startPosition = transform.position;
         //StartCoroutine(MoveObject());
     }
@@ -40,6 +48,19 @@ public class OponentMove : MonoBehaviour
         _AnimState = AnimState.Idle;
         SetCurrentAnimation(_AnimState);
     }
+
+    //private void Update()
+    //{
+    //    timeAfterAttack += Time.deltaTime;
+
+    //    if(timeAfterAttack >= attackRate)
+    //    {
+    //        timeAfterAttack = 0f;
+
+    //        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+    //        bullet.SetActive(true);
+    //    }
+    //}
 
     //private IEnumerator MoveObject()
     //{
