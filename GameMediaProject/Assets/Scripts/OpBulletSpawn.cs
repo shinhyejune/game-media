@@ -12,9 +12,11 @@ public class OpBulletSpawn : MonoBehaviour
     private float timeAfterAttack;
 
     // Start is called before the first frame update
-    void Start()
+
+    private void OnEnable()
     {
         timeAfterAttack = 0f;
+        attackRate = Random.Range(5f, 10f);
     }
 
     // Update is called once per frame

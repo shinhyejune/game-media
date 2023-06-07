@@ -6,11 +6,12 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform player;
     [SerializeField] float smoothing = 0.2f;
+    public float offset;
     private void FixedUpdate()
     {
-        if(player.position.x >= 0)
+        Vector3 targetPos = new Vector3(player.position.x + offset, this.transform.position.y, this.transform.position.z);
+        if (targetPos.x >= 0 && targetPos.x <= 35.5)
         {
-            Vector3 targetPos = new Vector3(player.position.x, this.transform.position.y, this.transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
         }
     }

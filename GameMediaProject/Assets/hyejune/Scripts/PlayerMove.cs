@@ -23,10 +23,22 @@ public class PlayerMove : MonoBehaviour
 
     private int state;
 
+    //체력 바
+    [SerializeField]
+    private Slider hpBar;
+
+    private float maxHp = 100;
+    private float currentHp = 100;
+
     //UI 버튼
     public Image leftBtn;
     public Image rightBtn;
     public Image jumpBtn;
+    public Image attackBtn;
+    public Text attackCool;
+    public float coolTime = 3f;
+
+    private float currentCoolTime;
 
 
     //스파인 애니메이션
@@ -49,6 +61,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        hpBar.value = currentHp / maxHp;
         //spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -63,12 +76,21 @@ public class PlayerMove : MonoBehaviour
             CurrentAnimation = AnimClip[(int)AnimState.Jump].name;
             skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Jump], false);
             jumpBtn.color = Color.gray;
-            StartCoroutine(WaitForButton());
+            StartCoroutine(WaitForButton(jumpBtn));
         }
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("aa");
+            if(currentCoolTime < 0f)
+            {
+                attackBtn.fillAmount = 1;
+                StartCoroutine("Cooltime");
+
+                currentCoolTime = coolTime;
+                attackCool.text = "" + currentCoolTime;
+
+                StartCoroutine("CoolTimeCounter");
+            }
         }
 
         //button up speed
@@ -187,10 +209,36 @@ public class PlayerMove : MonoBehaviour
         //_AsncAnimation(AnimClip[(int)_state], true, 1f);
     }
 
-    private IEnumerator WaitForButton()
+    private IEnumerator WaitForButton(Image img)
     {
         yield return new WaitForSeconds(0.3f);
-        jumpBtn.color = Color.white;
+        img.color = Color.white;
+    }
+
+    IEnumerator Cooltime()
+    {
+        while (attackBtn.fillAmount > 0)
+        {
+            attackBtn.fillAmount -= 1 * Time.smoothDeltaTime / coolTime;
+
+            yield return null;
+        }
+
+        yield break;
+    }
+
+    IEnumerator CoolTimeCounter()
+    {
+        attackCool.gameObject.SetActive(true);
+        while (currentCoolTime > 0.1)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            currentCoolTime -= 0.1f;
+            attackCool.text = "" + Mathf.Floor(currentCoolTime * 10f) / 10f;
+        }
+        attackCool.gameObject.SetActive(false);
+        yield break;
     }
 
     //공격 받는거
@@ -204,7 +252,14 @@ public class PlayerMove : MonoBehaviour
             CurrentAnimation = AnimClip[(int)AnimState.Hit].name;
             skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Hit], false);
             StartCoroutine(WaitForHit());
+            currentHp -= 20f;
+            HandleHp();
         }
+    }
+
+    private void HandleHp()
+    {
+        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * 20);
     }
 
     public void Attack()
