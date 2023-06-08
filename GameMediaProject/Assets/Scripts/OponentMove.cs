@@ -87,7 +87,7 @@ public class OponentMove : MonoBehaviour
             StartCoroutine(WaitForHit());
             currentHp -= getDamage;
             HandleHp();
-
+            skeletonAnimation.GetComponent<SpineShader>().Active();
             attackEvent?.Invoke();
         }
     }

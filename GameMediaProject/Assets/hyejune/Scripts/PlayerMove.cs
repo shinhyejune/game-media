@@ -232,7 +232,12 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator WaitForButton(Image img)
     {
         yield return new WaitForSeconds(0.3f);
+
         img.color = Color.white;
+
+        yield return new WaitForSeconds(0.56f);
+        if(state == 1)
+            state = 0;
     }
 
     IEnumerator Cooltime()
@@ -274,7 +279,7 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(WaitForHit());
             currentHp -= 10f;
             HandleHp();
-
+            skeletonAnimation.GetComponent<SpineShader>().Active();
             attackEvent?.Invoke();
         }
     }
