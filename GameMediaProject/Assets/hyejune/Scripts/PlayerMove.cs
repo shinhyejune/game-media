@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Spine.Unity;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField]
+    GameObject attackparticle;
+
+    [SerializeField]
+    UnityEvent attackEvent;
+
     [SerializeField]
     float maxSpeed;
     [SerializeField]
@@ -267,9 +274,26 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(WaitForHit());
             currentHp -= 10f;
             HandleHp();
+
+            attackEvent?.Invoke();
         }
     }
 
+    
+    private IEnumerator AttackEffect()
+    {
+        attackparticle.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        attackparticle.SetActive(false);
+
+    }
+
+    public void ActiveAttackEffect()
+    {
+        StartCoroutine(AttackEffect());
+    }
+
+    
     private void HandleHp()
     {
         hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * 20);

@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using Spine.Unity;
 
 public class OponentMove : MonoBehaviour
 {
+  
+    [SerializeField]
+    GameObject attackparticle;
+
+    [SerializeField]
+    UnityEvent attackEvent;
+
+
     public float speed = 1f;
     public float pauseTime = 0.5f;
 
@@ -78,6 +87,8 @@ public class OponentMove : MonoBehaviour
             StartCoroutine(WaitForHit());
             currentHp -= getDamage;
             HandleHp();
+
+            attackEvent?.Invoke();
         }
     }
 
@@ -198,5 +209,19 @@ public class OponentMove : MonoBehaviour
 
         //스위치문 요약
         //_AsncAnimation(AnimClip[(int)_state], true, 1f);
+    }
+
+    
+    private IEnumerator AttackEffect()
+    {
+        attackparticle.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        attackparticle.SetActive(false);
+
+    }
+
+    public void ActiveAttackEffect()
+    {
+        StartCoroutine(AttackEffect());
     }
 }
