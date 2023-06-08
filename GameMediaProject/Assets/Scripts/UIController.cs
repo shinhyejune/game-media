@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
 
     public GameObject mainCharacter;
 
+    public PlayerMove player;
+
     void Start()
     {
         
@@ -34,10 +36,12 @@ public class UIController : MonoBehaviour
             {
                 smallOp[i].SetActive(!smallOp[i].activeSelf);
             }
+            player.targetIndex = 0;
         }
         if (Input.GetKeyDown(KeyCode.F3))//보스 on/off
         {
             bossOP.SetActive(!bossOP.activeSelf);
+            player.targetIndex = 3;
         }
         if (Input.GetKeyDown(KeyCode.F4))//첫 번째 적 만나는 위치 이동
         {
