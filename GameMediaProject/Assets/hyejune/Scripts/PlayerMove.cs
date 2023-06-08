@@ -40,6 +40,16 @@ public class PlayerMove : MonoBehaviour
 
     private float currentCoolTime;
 
+    public Transform myTr;
+
+    //공격 대상
+    public Transform[] opTr;
+    public int targetIndex = 0;
+
+    //총알
+    public GameObject bulletPrefab;
+
+
 
     //스파인 애니메이션
     public SkeletonAnimation skeletonAnimation;
@@ -81,8 +91,11 @@ public class PlayerMove : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            if(currentCoolTime < 0f)
+            if(currentCoolTime <= 0.3f)
             {
+                GameObject bullet = Instantiate(bulletPrefab, myTr.position, myTr.rotation);
+                bullet.GetComponent<Bullet>().SetTarget(opTr[targetIndex]);
+                bullet.SetActive(true);
                 attackBtn.fillAmount = 1;
                 StartCoroutine("Cooltime");
 

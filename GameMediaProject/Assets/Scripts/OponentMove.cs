@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Spine.Unity;
 
 public class OponentMove : MonoBehaviour
@@ -17,6 +18,17 @@ public class OponentMove : MonoBehaviour
     public Transform target;
     private float timeAfterAttack;
 
+    public PlayerMove player;
+
+
+    //체력 바
+    [SerializeField]
+    private Slider hpBar;
+
+    private float maxHp = 100;
+    private float currentHp = 100;
+
+    public float damage = 50f;
 
 
     //스파인 애니메이션
@@ -24,10 +36,11 @@ public class OponentMove : MonoBehaviour
     public AnimationReferenceAsset[] AnimClip;
 
     private bool isFirst = true;
+    private int state = 0;
 
     public enum AnimState
     {
-        Idle
+        Idle,Hit,Die
     }
 
     //현재 애니메이션 처리가 무엇인지에 대한 변수
@@ -45,8 +58,60 @@ public class OponentMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _AnimState = AnimState.Idle;
-        SetCurrentAnimation(_AnimState);
+        if(state == 0)
+        {
+            _AnimState = AnimState.Idle;
+            SetCurrentAnimation(_AnimState);
+        }
+    }
+
+    //공격 받는거
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Magic(Clone)")
+        {
+            state = 2;
+            Destroy(other.gameObject);
+            _AnimState = AnimState.Hit;
+            CurrentAnimation = AnimClip[(int)AnimState.Hit].name;
+            skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Hit], false);
+            StartCoroutine(WaitForHit());
+            currentHp -= damage;
+            HandleHp();
+        }
+    }
+
+    private void HandleHp()
+    {
+        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * damage);
+        if(currentHp <= 0f)
+        {
+            SetDie();
+            player.targetIndex++;
+        }
+    }
+
+    private void SetDie()
+    {
+        state = 1;
+        _AnimState = AnimState.Die;
+        CurrentAnimation = AnimClip[(int)AnimState.Die].name;
+        skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Die], false);
+        hpBar.gameObject.SetActive(false);
+        StartCoroutine(WaitForDie());
+    }
+
+    private IEnumerator WaitForHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (state == 2)
+            state = 0;
+    }
+
+    private IEnumerator WaitForDie()
+    {
+        yield return new WaitForSeconds(1f);
+        this.gameObject.SetActive(false);
     }
 
     //private void Update()
