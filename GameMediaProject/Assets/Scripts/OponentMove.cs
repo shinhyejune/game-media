@@ -28,7 +28,7 @@ public class OponentMove : MonoBehaviour
     private float maxHp = 100;
     private float currentHp = 100;
 
-    public float damage = 50f;
+    public float getDamage = 50f;//받는 데미지
 
 
     //스파인 애니메이션
@@ -76,14 +76,14 @@ public class OponentMove : MonoBehaviour
             CurrentAnimation = AnimClip[(int)AnimState.Hit].name;
             skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Hit], false);
             StartCoroutine(WaitForHit());
-            currentHp -= damage;
+            currentHp -= getDamage;
             HandleHp();
         }
     }
 
     private void HandleHp()
     {
-        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * damage);
+        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * getDamage);
         if(currentHp <= 0f)
         {
             SetDie();

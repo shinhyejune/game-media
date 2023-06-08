@@ -10,6 +10,9 @@ public class OpBulletSpawn : MonoBehaviour
     public float attackRate = 3f;
     public Transform target;
     private float timeAfterAttack;
+    public bool isBoss = false;
+
+    public Transform pos;
 
     // Start is called before the first frame update
 
@@ -17,6 +20,8 @@ public class OpBulletSpawn : MonoBehaviour
     {
         timeAfterAttack = 0f;
         attackRate = Random.Range(5f, 10f);
+        if (isBoss)
+            attackRate = 4f;
     }
 
     // Update is called once per frame
@@ -28,7 +33,7 @@ public class OpBulletSpawn : MonoBehaviour
         {
             timeAfterAttack = 0f;
 
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, pos.position, pos.rotation);
             bullet.SetActive(true);
         }
     }

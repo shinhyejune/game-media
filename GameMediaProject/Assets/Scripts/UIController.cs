@@ -53,6 +53,7 @@ public class UIController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F5))//두 번째 적(보스) 만나는 위치 이동
         {
+            player.targetIndex = 3;
             mainCharacter.transform.position = secondStagePos.position;
             for (int i = 0; i < controller.Length; i++)
             {
