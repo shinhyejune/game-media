@@ -265,7 +265,7 @@ public class PlayerMove : MonoBehaviour
             CurrentAnimation = AnimClip[(int)AnimState.Hit].name;
             skeletonAnimation.state.SetAnimation(0, AnimClip[(int)AnimState.Hit], false);
             StartCoroutine(WaitForHit());
-            currentHp -= 20f;
+            currentHp -= 10f;
             HandleHp();
         }
     }
