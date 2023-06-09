@@ -10,6 +10,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     GameObject attackparticle;
 
+    public ParticleSystem attackAura;
+
     [SerializeField]
     UnityEvent attackEvent;
 
@@ -100,6 +102,7 @@ public class PlayerMove : MonoBehaviour
         {
             if(currentCoolTime <= 0.3f)
             {
+                attackAura.Play();
                 GameObject bullet = Instantiate(bulletPrefab, myTr.position, myTr.rotation);
                 bullet.GetComponent<Bullet>().SetTarget(opTr[targetIndex]);
                 bullet.SetActive(true);
@@ -248,7 +251,7 @@ public class PlayerMove : MonoBehaviour
 
             yield return null;
         }
-
+        attackAura.Pause();
         yield break;
     }
 
