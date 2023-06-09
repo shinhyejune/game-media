@@ -1,0 +1,17 @@
+BOOK.png
+size:1664,1043
+filter:Linear,Linear
+pma:true
+book_L
+bounds:1347,398,315,315
+offsets:1,1,317,317
+book_R
+bounds:727,11,702,618
+offsets:1,1,704,620
+rotate:90
+book_case
+bounds:2,2,1039,723
+rotate:90
+paper
+bounds:727,715,326,789
+rotate:90

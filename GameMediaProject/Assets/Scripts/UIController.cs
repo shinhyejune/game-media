@@ -57,7 +57,7 @@ public class UIController : MonoBehaviour
             mainCharacter.transform.position = secondStagePos.position;
             for (int i = 0; i < controller.Length; i++)
             {
-                controller[i].SetActive(true);
+                bossOP.SetActive(true);
             }
         }
     }

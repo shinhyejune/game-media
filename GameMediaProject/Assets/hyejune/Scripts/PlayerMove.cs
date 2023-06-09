@@ -50,6 +50,7 @@ public class PlayerMove : MonoBehaviour
     private float currentCoolTime;
 
     public Transform myTr;
+    public Transform bulletTr;
 
     //공격 대상
     public Transform[] opTr;
@@ -57,6 +58,9 @@ public class PlayerMove : MonoBehaviour
 
     //총알
     public GameObject bulletPrefab;
+
+    //책
+    public BookController book;
 
 
 
@@ -102,10 +106,14 @@ public class PlayerMove : MonoBehaviour
         {
             if(currentCoolTime <= 0.3f)
             {
-                attackAura.SetActive(true);
-                GameObject bullet = Instantiate(bulletPrefab, myTr.position, myTr.rotation);
+                GameObject bullet = Instantiate(bulletPrefab, bulletTr.position, bulletTr.rotation);
                 bullet.GetComponent<Bullet>().SetTarget(opTr[targetIndex]);
                 bullet.SetActive(true);
+
+
+
+                attackAura.SetActive(true);
+                book.SetAttack();
                 attackBtn.fillAmount = 1;
                 StartCoroutine("Cooltime");
 
@@ -113,6 +121,7 @@ public class PlayerMove : MonoBehaviour
                 attackCool.text = "" + currentCoolTime;
 
                 StartCoroutine("CoolTimeCounter");
+                //StartCoroutine(WaitForAttack());
             }
         }
 
@@ -309,7 +318,15 @@ public class PlayerMove : MonoBehaviour
 
     public void Attack()
     {
+        GameObject bullet = Instantiate(bulletPrefab, bulletTr.position, bulletTr.rotation);
+        bullet.GetComponent<Bullet>().SetTarget(opTr[targetIndex]);
+        bullet.SetActive(true);
+    }
 
+    private IEnumerator WaitForAttack()
+    {
+        yield return new WaitForSeconds(1.6f);
+        Attack();
     }
 
     private IEnumerator WaitForHit()

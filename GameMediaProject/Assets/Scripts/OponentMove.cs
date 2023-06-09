@@ -94,7 +94,7 @@ public class OponentMove : MonoBehaviour
 
     private void HandleHp()
     {
-        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, Time.deltaTime * getDamage);
+        hpBar.value = Mathf.Lerp(hpBar.value, currentHp / maxHp, getDamage);
         if(currentHp <= 0f)
         {
             SetDie();
