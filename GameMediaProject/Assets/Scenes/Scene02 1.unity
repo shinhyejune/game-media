@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackparticle: {fileID: 453273181}
-  attackAura: {fileID: 1266589097}
+  attackAura: {fileID: 1266589095}
   attackEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1872,11 +1872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1925096538555334066, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1925096538802341630, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: m_Name
@@ -1884,23 +1884,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5283580628450222628, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5283580630149143146, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5283580630304147345, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6020378854182659359, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: looping
@@ -1912,7 +1912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: stopAction
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: lengthInSec
@@ -1920,7 +1920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
       propertyPath: useUnscaledTime
@@ -4628,9 +4628,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &1266589097 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7454758666212883914, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
+--- !u!1 &1266589095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3732551427800355369, guid: 3e2226b0718f88b40ad98d970390f416, type: 3}
   m_PrefabInstance: {fileID: 470091394}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278161813
